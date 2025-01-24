@@ -78,7 +78,6 @@ public class Lab2 {
                     System.out.println("Shutting off...");
                     sentinel = false;
             }
-
         }
     }
 }
