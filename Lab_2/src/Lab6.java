@@ -4,7 +4,7 @@ public class Lab6 {
     public interface FindFib {
         int calculateFib(int n);
 
-        public class FibIteration implements FindFib {
+        class FibIteration implements FindFib {
             @Override
             public int calculateFib(int num) {
                 if (num == 0) return 0;
@@ -21,7 +21,7 @@ public class Lab6 {
 
         }
 
-        public class FibFormula implements FindFib {
+        class FibFormula implements FindFib {
             @Override
             public int calculateFib(int num) {
                 double sqrt5 = Math.sqrt(5);
