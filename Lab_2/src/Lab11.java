@@ -2,70 +2,73 @@ import java.util.Scanner;
 
 public class Lab11 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         BlueRayCollection collection = new BlueRayCollection();
-        int option;
+        Scanner scanner = new Scanner(System.in);
+        int option = 0;
 
-        do {
+        while (true) {
             System.out.println("\n[BlueRay Disk Collection]");
             System.out.println("1. Add to collection");
             System.out.println("2. See collection");
             System.out.println("3. Quit");
             System.out.print("Enter option: ");
 
+            String input = scanner.nextLine();
             try {
-                option = Integer.parseInt(scanner.nextLine());
-
-                switch (option) {
-                    case 1:
-                        System.out.print("\nEnter disk title: ");
-                        String title = scanner.nextLine();
-                        System.out.print("Enter director name: ");
-                        String director = scanner.nextLine();
-
-                        int yearOfRelease;
-                        try {
-                            System.out.print("Enter year of release: ");
-                            yearOfRelease = Integer.parseInt(scanner.nextLine());
-                        } catch (NumberFormatException e) {
-                            System.out.println("Error: Year of release must be a whole number!");
-                            continue;
-                        }
-
-                        double cost;
-                        try {
-                            System.out.print("Enter price of disk: $");
-                            cost = Double.parseDouble(scanner.nextLine());
-                        } catch (NumberFormatException e) {
-                            System.out.println("Error: Price must be a number!");
-                            continue;
-                        }
-
-                        collection.addDisk(title, director, yearOfRelease, cost);
-                        break;
-
-                    case 2:
-                        String collectionList = collection.showAll();
-                        if (collectionList.isEmpty()) {
-                            System.out.println("BlueRay collection is empty");
-                        } else {
-                            System.out.println("\nHere's your current collection:");
-                            System.out.println(collectionList);
-                        }
-                        break;
-
-                    case 3:
-                        System.out.println("Shutting off...");
-                        break;
-
-                    default:
-                        System.out.println("Invalid option. Please choose 1, 2, or 3.");
-                }
+                option = Integer.parseInt(input);
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a number.");
-                option = 0;
+                System.out.println("Invalid option. Please enter a valid number.");
+                continue;
             }
-        } while (option != 3);
+
+            if (option == 1) {
+                // Option 1: Add to collection.
+                System.out.print("\nEnter disk title: ");
+                String title = scanner.nextLine();
+
+                System.out.print("Enter director name: ");
+                String director = scanner.nextLine();
+
+                System.out.print("Enter year of release: ");
+                String yearStr = scanner.nextLine();
+                int year;
+                try {
+                    year = Integer.parseInt(yearStr);
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: Year of release must be a whole number!");
+                    continue;
+                }
+
+                System.out.print("Enter price of disk: $");
+                String priceStr = scanner.nextLine();
+                double price;
+                try {
+                    price = Double.parseDouble(priceStr);
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: Price must be a number!");
+                    continue;
+                }
+
+                collection.addDisk(title, director, year, price);
+                System.out.println("BlueRay Disk added to collection.");
+
+            } else if (option == 2) {
+                // Option 2: See collection.
+                String list = collection.showAll();
+                if (list.isEmpty()) {
+                    System.out.println("BlueRay collection is empty");
+                } else {
+                    System.out.println("Here's your current collection:");
+                    System.out.println(list);
+                }
+            } else if (option == 3) {
+                // Option 3: Quit.
+                System.out.println("Shutting off...");
+                break;
+            } else {
+                System.out.println("Invalid option. Please try again.");
+            }
+        }
 
         scanner.close();
     }
